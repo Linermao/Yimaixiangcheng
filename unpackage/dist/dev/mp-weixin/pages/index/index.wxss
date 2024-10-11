@@ -1,0 +1,86 @@
+
+.bkgd-group{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+}
+.bkgd-photo{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.bkgd-patterns-1{
+	position: absolute;
+	margin-top: 60%;
+	margin-left: -5%;
+	width: 264px;
+	mix-blend-mode: multiply;
+	opacity: 1;
+}
+.bkgd-patterns-2{
+	position: absolute;
+	margin-top: 95%;
+	margin-left: -45%;
+	width: 508px;
+	mix-blend-mode: multiply;
+	opacity: 1;
+}
+.bkgd-patterns-3{
+	position: absolute;
+	margin-top: 125%;
+	margin-left: 75%;
+	width: 126px;
+	mix-blend-mode: multiply;
+	opacity: 1;
+}
+.bkgd-patterns-4{
+	position: absolute;
+	margin-top: 10%;
+	margin-left: 5%;
+	width: 153.01px;
+	mix-blend-mode: multiply;
+	opacity: 1;
+}
+.bkgd-patterns-5{
+	position: absolute;
+	margin-top: 20%;
+	margin-left: 70%;
+	width: 110.2px;
+	mix-blend-mode: multiply;
+	opacity: 1;
+}
+.bkgd-patterns-6{
+	position: absolute;
+	margin-top: 90%;
+	margin-left: 75%;
+	width: 118.44px;
+	mix-blend-mode: multiply;
+	opacity: 1;
+}
+.title-group{
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	align-items: center; /* 垂直居中子元素 */
+	width: 100%;
+	height: 100vh;
+	opacity: 1;
+	z-index: 10;
+}
+.title-group-font-style{
+	margin-top: 5%;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 7px;
+	line-height: 16px;
+	color: rgba(181, 136, 81, 1);
+	text-align: center;
+	vertical-align: top;
+}
+.title-group-word{
+	margin-top: 45%;
+	width: 306px;
+	height: 122px;
+	opacity: 1;
+}

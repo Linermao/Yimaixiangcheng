@@ -1,0 +1,1 @@
+<view class="bkgd-group"><image class="bkgd-photo" src="{{a}}" mode=""/></view><view class="title-group"><image class="title-group-word" src="{{b}}"></image></view>

@@ -1,0 +1,17 @@
+"use strict";
+const _imports_0 = "/static/StartPage/bkgr.png";
+const _imports_1$1 = "/static/StartPage/1.png";
+const _imports_2 = "/static/StartPage/2.png";
+const _imports_3 = "/static/StartPage/3.png";
+const _imports_4 = "/static/StartPage/4.png";
+const _imports_5 = "/static/StartPage/5.png";
+const _imports_6 = "/static/StartPage/6.png";
+const _imports_1 = "/static/StartPage/Title.png";
+exports._imports_0 = _imports_0;
+exports._imports_1 = _imports_1$1;
+exports._imports_1$1 = _imports_1;
+exports._imports_2 = _imports_2;
+exports._imports_3 = _imports_3;
+exports._imports_4 = _imports_4;
+exports._imports_5 = _imports_5;
+exports._imports_6 = _imports_6;
