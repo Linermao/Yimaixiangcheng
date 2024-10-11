@@ -11,8 +11,10 @@ function _sfc_render(_ctx, _cache) {
     e: common_assets._imports_4,
     f: common_assets._imports_5,
     g: common_assets._imports_6,
-    h: common_assets._imports_1$1
+    h: common_assets._imports_1$1,
+    i: common_assets._imports_8,
+    j: common_assets._imports_9
   };
 }
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);

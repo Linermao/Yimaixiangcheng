@@ -8,12 +8,17 @@
 		<image class="bkgd-patterns-5" src="../../static/StartPage/5.png" mode="widthFix"  />
 		<image class="bkgd-patterns-6" src="../../static/StartPage/6.png" mode="widthFix"  />
 	</view>
-	
+
 	<view class="title-group">
 		<image class="title-group-word" src="../../static/StartPage/Title.png" mode=""></image>
 		<text class="title-group-font-style">
-			国朝云端私人定制平台
+			国潮云端私人定制平台
 		</text>
+	</view>
+	
+	<view class="arrow-group">
+		<image class="arrow" src="../../static/StartPage/arrow1.png" mode="widthFix" />
+		<image class="arrow" src="../../static/StartPage/arrow2.png" mode="widthFix" />
 	</view>
 	
 </template>
@@ -22,7 +27,7 @@
 	
 </script>
 
-<style>
+<style scoped>
 .bkgd-group{
 	position: absolute;
 	width: 100%;
@@ -87,8 +92,6 @@
 	position: relative;
 	flex-direction: column;
 	align-items: center; /* 垂直居中子元素 */
-	width: 100%;
-	height: 100vh;
 	opacity: 1;
 	z-index: 10;
 }
@@ -108,4 +111,33 @@
 	height: 122px;
 	opacity: 1;
 }
+
+.arrow-group{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 65%;
+}
+.arrow{
+	width: 40px;
+	animation: arrow-move 1s alternate infinite;
+}
+.arrow:nth-child(1){
+	animation-delay: -0.2s;
+}
+.arrow:nth-child(2){
+	animation-delay: -0.1s;
+}
+@keyframes arrow-move{
+	0%{
+		opacity: 0;
+		transform: translate(0px, 40px);
+	}
+	100%{
+		opacity: 1;
+	}
+}
+
 </style>
