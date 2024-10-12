@@ -1,0 +1,20 @@
+/* 水平间距 */
+/* 水平间距 */
+.slider.data-v-1b12d046 {
+  position: relative;
+  transition: all 0.1s ease-in;
+}
+.slider .content.data-v-1b12d046 {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: antiquewhite;
+  font-size: 25px;
+}
+.slider .btn-del.data-v-1b12d046 {
+  width: 100px;
+  position: absolute;
+  right: -100px;
+  background-color: red;
+}

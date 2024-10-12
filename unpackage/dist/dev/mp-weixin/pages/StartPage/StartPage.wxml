@@ -1,1 +1,1 @@
-<view class="bkgd-group"><image class="bkgd-photo" src="{{a}}" mode=""/></view><view class="title-group"><image class="title-group-word" src="{{b}}"></image></view>
+<view class="slider data-v-1b12d046" bindtouchstart="{{a}}" bindtouchmove="{{b}}" bindtouchend="{{c}}" style="{{d}}"><view class="content data-v-1b12d046"> 文字内容 </view><view class="btn-del data-v-1b12d046"> 删除 </view></view>
