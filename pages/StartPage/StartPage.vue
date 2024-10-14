@@ -1,11 +1,6 @@
 <template>
-	<view class="slider" @touchstart="start" @touchmove="move" @touchend="end" :style="sliderStyle">
-		<view class="content">
-			文字内容
-		</view>
-		<view class="btn-del">
-			删除
-		</view>
+	<view class="shape-combo">
+		
 	</view>
 </template>
 
@@ -44,23 +39,32 @@ const sliderStyle = computed(() => ({
 </script>
 
 <style lang="scss" scoped>
-.slider{
-	position: relative;
-	transition: all 0.1s ease-in;
-	.content{
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		background-color: antiquewhite;
-		font-size: 25px;
-	}
-	.btn-del{
-		width: 100px;
-		position: absolute;
-		right: -100px;
-		background-color: red;
-	}
+.shape-combo {
+  position: absolute;
+  width: 200px; /* 矩形的宽度 */
+  height: 100px; /* 矩形的高度 */
+  background-color: #ffff; /* 矩形的背景颜色 */
 }
+
+.shape-combo::before,
+.shape-combo::after {
+  content: '';
+  position: absolute;
+  width: 50px; /* 圆形的直径 */
+  height: 50px; /* 圆形的直径 */
+  background-color: #ffff; /* 圆形的背景颜色 */
+  border-radius: 50%; /* 使形状成为圆形 */
+}
+
+.shape-combo::before {
+  top: -25px; /* 圆形上移到矩形上方 */
+  left: 75px; /* 圆形在矩形水平方向上的位置 */
+}
+
+.shape-combo::after {
+  bottom: -25px; /* 圆形下移到矩形下方 */
+  left: 75px; /* 圆形在矩形水平方向上的位置 */
+}
+
 
 </style>

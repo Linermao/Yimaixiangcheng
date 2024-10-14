@@ -1,20 +1,36 @@
 /* 水平间距 */
 /* 水平间距 */
-.slider.data-v-1b12d046 {
-  position: relative;
-  transition: all 0.1s ease-in;
-}
-.slider .content.data-v-1b12d046 {
-  width: 100%;
+.shape-combo.data-v-1b12d046 {
   position: absolute;
-  top: 0;
-  left: 0;
-  background-color: antiquewhite;
-  font-size: 25px;
+  width: 200px;
+  /* 矩形的宽度 */
+  height: 100px;
+  /* 矩形的高度 */
+  background-color: #ffff;
+  /* 矩形的背景颜色 */
 }
-.slider .btn-del.data-v-1b12d046 {
-  width: 100px;
+.shape-combo.data-v-1b12d046::before,
+.shape-combo.data-v-1b12d046::after {
+  content: "";
   position: absolute;
-  right: -100px;
-  background-color: red;
+  width: 50px;
+  /* 圆形的直径 */
+  height: 50px;
+  /* 圆形的直径 */
+  background-color: #ffff;
+  /* 圆形的背景颜色 */
+  border-radius: 50%;
+  /* 使形状成为圆形 */
+}
+.shape-combo.data-v-1b12d046::before {
+  top: -25px;
+  /* 圆形上移到矩形上方 */
+  left: 75px;
+  /* 圆形在矩形水平方向上的位置 */
+}
+.shape-combo.data-v-1b12d046::after {
+  bottom: -25px;
+  /* 圆形下移到矩形下方 */
+  left: 75px;
+  /* 圆形在矩形水平方向上的位置 */
 }

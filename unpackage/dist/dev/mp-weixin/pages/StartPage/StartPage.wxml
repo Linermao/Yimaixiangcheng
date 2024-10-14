@@ -1,1 +1,1 @@
-<view class="slider data-v-1b12d046" bindtouchstart="{{a}}" bindtouchmove="{{b}}" bindtouchend="{{c}}" style="{{d}}"><view class="content data-v-1b12d046"> 文字内容 </view><view class="btn-del data-v-1b12d046"> 删除 </view></view>
+<view class="shape-combo data-v-1b12d046"></view>

@@ -1,51 +1,119 @@
 <template>
-	<view class="bkgd-group">
-		<image class="bkgd-photo" src="../../static/StartPage/bkgr.png" />
-		<image class="bkgd-patterns-1" src="../../static/StartPage/1.png" mode="widthFix"  />
-		<image class="bkgd-patterns-2" src="../../static/StartPage/2.png" mode="widthFix"  />
-		<image class="bkgd-patterns-3" src="../../static/StartPage/3.png" mode="widthFix"  />
-		<image class="bkgd-patterns-4" src="../../static/StartPage/4.png" mode="widthFix"  />
-		<image class="bkgd-patterns-5" src="../../static/StartPage/5.png" mode="widthFix"  />
-		<image class="bkgd-patterns-6" src="../../static/StartPage/6.png" mode="widthFix"  />
-	</view>
+	<view class="full-page">
+		<view class="bkgd-group">
+			<image class="bkgd-photo" src="../../static/StartPage/bkgr.png" />
+			<image class="bkgd-patterns-1" src="../../static/StartPage/1.png" mode="widthFix"  />
+			<image class="bkgd-patterns-2" src="../../static/StartPage/2.png" mode="widthFix"  />
+			<image class="bkgd-patterns-3" src="../../static/StartPage/3.png" mode="widthFix"  />
+			<image class="bkgd-patterns-4" src="../../static/StartPage/4.png" mode="widthFix"  />
+			<image class="bkgd-patterns-5" src="../../static/StartPage/5.png" mode="widthFix"  />
+			<image class="bkgd-patterns-6" src="../../static/StartPage/6.png" mode="widthFix"  />
+		</view>
+		
+		<view class="title-group">
+			<image class="title-group-word" src="../../static/StartPage/Title.png" mode="widthFix"></image>
+			<text class="title-group-font-style">
+				国潮云端私人定制平台
+			</text>
+		</view>
+		
+		<view class="arrow-group" @touchstart="start" @touchmove="move" @touchend="end" :style="sliderStyle">
+			<image class="arrow" src="../../static/StartPage/arrow1.png" mode="widthFix" />
+			<image class="arrow" src="../../static/StartPage/arrow2.png" mode="widthFix" />
+		</view>
+		
+		<view class="register-login" @touchstart="start" @touchmove="move" @touchend="end" :style="sliderStyle">
+			<view class="bkgd"></view>
+			
+			<view class="switch-block" v-if="!blockSwitch">
+				<image class="switch-block-1" src="../../static/StartPage/switchBlock1.png" mode="" @click="switchBlock" />
+				<view class="switch-block-white-left"></view>
+			</view>
 
-	<view class="title-group">
-		<image class="title-group-word" src="../../static/StartPage/Title.png" mode="widthFix"></image>
-		<text class="title-group-font-style">
-			国潮云端私人定制平台
-		</text>
-	</view>
-	<view class="arrow-group">
-		<image class="arrow" src="../../static/StartPage/arrow1.png" mode="widthFix" />
-		<image class="arrow" src="../../static/StartPage/arrow2.png" mode="widthFix" />
-	</view>
-
+			<view class="switch-block" v-if="blockSwitch">
+				<image class="switch-block-2" src="../../static/StartPage/switchBlock2.png" mode="" @click="switchBlock" />
+				<view class="switch-block-white-right"></view>
+			</view>
+			
+			<view class="text-box">
+				<text class="white-block-font">
+					登录
+				</text>
+			</view>
 	
+			<input class="input-box" type="text" placeholder="键盘右下角按钮显示为搜索" />
+	
+		</view>
+	
+	</view>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-// 定义一个响应式变量来存储滚动距离
-const scrollTop = ref(0);
+const moveY = ref(-500);
+const blockSwitch = ref(false);
+let startY = 0;
+let nowY = 0;
+const res = uni.getSystemInfoSync();
+const moveableHeight = -0.588 * res.windowHeight;
+const ThresholdHeight1 = 0.33 * moveableHeight;
+const ThresholdHeight2 = 0.66 * moveableHeight;
 
-// 监听页面滚动事件
-uni.onPageScroll((e) => {
-  // 更新滚动距离
-  scrollTop.value = e.scrollTop;
-  console.log(scrollTop.value);
-});
+const start = ((e)=>{
+	startY = e.touches[0].clientY;
+})
+const move = ((e)=>{
+	let dis = e.touches[0].clientY - startY;
+	moveY.value = nowY + dis;
+	if(nowY == 0 && moveY.value < ThresholdHeight1){
+		moveY.value = moveableHeight;
+	}
+	else if (moveY.value < moveableHeight) {
+		moveY.value = moveableHeight;
+	}
+	else if (nowY !=0 && moveY.value > ThresholdHeight2){
+		moveY.value = 0;
+	}
+})
+const end = (()=>{
+	nowY = moveY.value;
+	if (nowY >= ThresholdHeight1){
+		moveY.value = 0;
+		nowY = 0;
+	}else if (nowY <= ThresholdHeight2){
+		moveY.value = moveableHeight;
+		nowY = moveableHeight;
+	}
+})
+const sliderStyle = computed(() => ({
+  transform: `translateY(${moveY.value}px)`
+}));
+
+const switchBlock = ((blockName)=>{
+	blockSwitch.value = ! blockSwitch.value;
+})
 
 </script>
 
 <style lang="scss" scoped>
+	
+.full-page{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	overflow: hidden;
+}	
+
 .bkgd-group{
 	position: absolute;
 	top: 0;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	opacity: 1;
-	
+	overflow: hidden;
 	.bkgd-photo{
 		position: absolute;
 		top: 0;
@@ -106,12 +174,13 @@ uni.onPageScroll((e) => {
 	display: flex;
 	position: absolute;
 	top: 31.2%;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 30%;
 	flex-direction: column;
 	align-items: center; /* 垂直居中子元素 */
 	opacity: 1;
 	z-index: 10;
+	overflow: hidden;
 	.title-group-word{
 		width: 71%;
 		opacity: 1;
@@ -133,12 +202,14 @@ uni.onPageScroll((e) => {
 .arrow-group{
 	position: absolute;
 	display: flex;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 10%;
 	flex-direction: column;
 	align-items: center;
 	z-index: 10;
 	top: 82.34%;
+	overflow: hidden;
+	transition: all 0.1s ease-in;
 	
 	.arrow{
 		width: 40px;
@@ -161,18 +232,96 @@ uni.onPageScroll((e) => {
 	}
 }
 
-.RegisterOrLogin{
+.register-login{
 	position: absolute;
-	width: 100vw;
-	height: 58.8%;
-	top: 41.2%;
+	width: 100%;
+	height: 59.2vh;
+	top: 100%;
 	border-radius: 29px;
 	background: rgba(255, 255, 255, 1);
 	animation: move-in 1s;
-	.Login{
+	transition: all 0.1s ease-in;
+	z-index: 15;
+	
+	.bkgd{
+		position: absolute;
+		bottom: 0%;
+		width: 100%;
+		height: 48.9vh;
+		border-radius: 0 0 29px 29px;
+		background: rgba(255, 255, 255, 1);
 	}
-	.Register{
+
+	.switch-block{
+		position: absolute;
+		right: 0%;
+		width: 100%;
+		height: 10.4vh;
+		.switch-block-1{
+			position: absolute;
+			right: 0%;
+			width: 56.7%;
+			height: 100%;
+			text-align: center;
+		}
+		.switch-block-white-left{
+			position: absolute;
+			left: 0;
+			width: 50%;
+			height: 100%;
+			border-radius: 29px 29px 0 0;
+			background: rgba(255, 255, 255, 1);
+			text-align: center;
+		}
+		.switch-block-2{
+			position: absolute;
+			left: 0%;
+			width: 61.6%;
+			height: 100%;
+		}
+		.switch-block-white-right{
+			position: absolute;
+			right: 0;
+			width: 50%;
+			height: 100%;
+			border-radius: 29px 29px 0 0;
+			background: rgba(255, 255, 255, 1);
+		}
 	}
+	
+	.text-box{
+		display: flex;
+		align-items: center; /* 垂直居中子元素 */
+		justify-content: center; /* 可选，如果也需要水平居中 */
+		text-align: center;
+		width: 50%;
+		height: 10.4vh;
+		z-index: 20;
+		.white-block-font{
+			font-size: 28px;
+			font-weight: 500;
+			letter-spacing: 0px;
+			line-height: 40.54px;
+			color: rgba(166, 70, 20, 1);
+			text-align: center;
+			vertical-align: top;
+		}
+		.font{
+			font-size: 32px;
+		}
+	}
+	
+	.input-box{
+		width: 60%;
+		height: 10%;
+		background: yellow;
+		background-color: yellow;
+		border: 1rpx solid #dadbde;
+		font-size: 18px;
+		border-radius: 8rpx;
+	}
+	
+
 	@keyframes move-in{
 		0%{
 			opacity: 0;
@@ -183,21 +332,5 @@ uni.onPageScroll((e) => {
 		}
 	}
 }
-.movable-area {
-	height: 300rpx;
-	width: 100%;
-	background-color: #D8D8D8;
-	overflow: hidden;
-}
-
-.movable-view {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 150rpx;
-		width: 150rpx;
-		background-color: #007AFF;
-		color: #fff;
-	}
 
 </style>
