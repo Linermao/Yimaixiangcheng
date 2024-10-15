@@ -10,7 +10,7 @@
 			<image class="bkgd-patterns-6" src="../../static/StartPage/6.png" mode="widthFix"  />
 		</view>
 		
-		<view class="title-group">
+		<view class="title-group" :style="titleSliderStyle"> 
 			<image class="title-group-word" src="../../static/StartPage/Title.png" mode="widthFix"></image>
 			<text class="title-group-font-style">
 				国潮云端私人定制平台
@@ -25,33 +25,108 @@
 		<view class="register-login" @touchstart="start" @touchmove="move" @touchend="end" :style="sliderStyle">
 			<view class="bkgd"></view>
 			
-			<view class="switch-block" v-if="!blockSwitch">
+			<view class="switch-block" v-if="!blockSwitch" >
 				<image class="switch-block-1" src="../../static/StartPage/switchBlock1.png" mode="" @click="switchBlock" />
 				<view class="switch-block-white-left"></view>
 			</view>
 
-			<view class="switch-block" v-if="blockSwitch">
+			<view class="switch-block" v-if="blockSwitch" >
 				<image class="switch-block-2" src="../../static/StartPage/switchBlock2.png" mode="" @click="switchBlock" />
 				<view class="switch-block-white-right"></view>
 			</view>
 			
-			<view class="text-box">
+			<view class="text-box" v-if="!blockSwitch">
 				<text class="white-block-font">
 					登录
 				</text>
+				<view class="small-bar"></view>
 			</view>
-	
-			<input class="input-box" type="text" placeholder="键盘右下角按钮显示为搜索" />
-	
+			
+			<view class="text-box" style="transform: translateX(100%);" v-if="blockSwitch">
+				<text class="white-block-font">
+					注册
+				</text>
+				<view class="small-bar"></view>
+			</view>
+
+			<view class="text-box" style="transform: translateX(100%);" v-if="!blockSwitch" @click="switchBlock">
+				<text class="font">
+					注册
+				</text>
+			</view>
+			
+			<view class="text-box" v-if="blockSwitch" @click="switchBlock">
+				<text class="font">
+					登录
+				</text>
+			</view>
+
+			<view class="input-box">
+				<image class="dragon" style="transform: translateX(50%);" src="../../static/StartPage/dragon.png" mode="widthFix" />
+				<view class="input-box" style="top: 5vh; width: 76%;">
+					<view style="display: flex; align-self: flex-start; gap: 10px">
+						<image class="phone" src="../../static/StartPage/phone.png" mode=""></image>
+						<text class="title-font">手机号</text>
+					</view>
+						
+					<input class="input-style" type="text" placeholder-class="input-font" placeholder="请输入手机号" />
+					
+					<view class="line" />
+					
+					<view style="display: flex; align-self: flex-start; gap: 10px">
+						<image class="lock" src="../../static/StartPage/lock.png" mode=""></image>
+						<text class="title-font">密码</text>
+						<text class="title-font" style="color: red; position: absolute; right: 0;">忘记密码?</text>
+					</view>
+						
+					<view style="display: flex; align-self: flex-start">
+						<input class="input-style" type="text" placeholder-class="input-font" placeholder="请输入6～12位密码">
+							<image src="../../static/StartPage/visiable.png" style="width: 4vw; position: absolute; right: 0; bottom: 10%;" mode="widthFix"></image>
+						</input>
+					</view>	
+					
+					<view class="line"></view>
+					
+				</view>
+				
+				<view style="position: absolute; display: flex; top: 25vh; justify-content: center;">
+					<checkbox-group>
+						<label>
+							<checkbox />
+							<text class="checkbox-font">
+								同意
+							</text>
+							<text class="checkbox-font" style="color: blue;">
+								《星禾平台服务协议》
+							</text>
+							<text class="checkbox-font">
+								和
+							</text>
+							<text class="checkbox-font" style="color: blue;">
+								《隐私政策》
+							</text>
+						</label>
+					</checkbox-group>
+				</view>
+				<button type="primary" class="button" v-if="!blockSwitch">
+						登录
+				</button>
+				<button class="button" style="background: rgba(107, 179, 167, 1);" v-if="blockSwitch">
+					<text class="font">
+						注册
+					</text>
+				</button>
+			</view>
+			
 		</view>
-	
 	</view>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
 
-const moveY = ref(-500);
+const moveY = ref(0);
+const titleMoveY = ref(0);
 const blockSwitch = ref(false);
 let startY = 0;
 let nowY = 0;
@@ -66,15 +141,19 @@ const start = ((e)=>{
 const move = ((e)=>{
 	let dis = e.touches[0].clientY - startY;
 	moveY.value = nowY + dis;
+	
 	if(nowY == 0 && moveY.value < ThresholdHeight1){
 		moveY.value = moveableHeight;
+		titleMoveY.value = moveY.value * 0.3;
 	}
 	else if (moveY.value < moveableHeight) {
 		moveY.value = moveableHeight;
 	}
 	else if (nowY !=0 && moveY.value > ThresholdHeight2){
 		moveY.value = 0;
+		titleMoveY.value = 0;
 	}
+		
 })
 const end = (()=>{
 	nowY = moveY.value;
@@ -86,8 +165,13 @@ const end = (()=>{
 		nowY = moveableHeight;
 	}
 })
+
 const sliderStyle = computed(() => ({
   transform: `translateY(${moveY.value}px)`
+}));
+
+const titleSliderStyle = computed(() => ({
+  transform: `translateY(${titleMoveY.value}px)`
 }));
 
 const switchBlock = ((blockName)=>{
@@ -290,7 +374,9 @@ const switchBlock = ((blockName)=>{
 	}
 	
 	.text-box{
+		position: absolute;
 		display: flex;
+		flex-direction: column;
 		align-items: center; /* 垂直居中子元素 */
 		justify-content: center; /* 可选，如果也需要水平居中 */
 		text-align: center;
@@ -306,22 +392,103 @@ const switchBlock = ((blockName)=>{
 			text-align: center;
 			vertical-align: top;
 		}
+		.small-bar{
+			width: 31.1%;
+			height: 4.2%;
+			opacity: 1;
+			border-radius: 5px;
+			background: rgba(127, 47, 40, 1);
+		}
+		
 		.font{
-			font-size: 32px;
+			font-size: 28px;
+			font-weight: 500;
+			letter-spacing: 0px;
+			line-height: 40.54px;
+			color: rgba(255, 255, 255, 1);
+			text-align: left;
+			vertical-align: top;
 		}
 	}
 	
 	.input-box{
-		width: 60%;
-		height: 10%;
-		background: yellow;
-		background-color: yellow;
-		border: 1rpx solid #dadbde;
-		font-size: 18px;
-		border-radius: 8rpx;
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		top: 10.4vh;
+		width: 100%;
+		gap: 10px;
+		.input-style{
+			width: 100%;
+		}
+		.input-font{
+			font-size: 15px;
+			font-weight: 400;
+			letter-spacing: 0px;
+			line-height: 20px;
+			color: rgba(200, 201, 204, 1);
+			text-align: left;
+			vertical-align: middle;
+		}
+		.title-font{
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0px;
+			line-height: 20.72px;
+			color: rgba(141, 141, 155, 1);
+			text-align: left;
+			vertical-align: top;
+		}
+		.line{
+			width: 100%;
+			height: 0.3vh;
+			opacity: 1;
+			border-radius: 5px;
+			background: rgba(241, 241, 247, 1);
+		}
+		.phone{
+			width: 12.08px;
+			height: 21.72px;
+			opacity: 1;
+		}
+		.lock{
+			width: 15px;
+			height: 16.67px;
+			opacity: 1;
+			}
+		.dragon{
+			position: absolute;
+			top: 18vh;
+			width: 121vw;
+		}
+
 	}
 	
+	.button{
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		top: 33vh;
+		width: 56%;
+		height: 6.3vh;
+		opacity: 1;
+		border-radius: 28.5px;
+		font-size: 30px;
+		text-align: center;
+		vertical-align: top;
+		background: rgba(230, 210, 175, 1);
+	}
 
+	.checkbox-font{
+		font-size: 13px;
+		font-weight: 400;
+		letter-spacing: 0px;
+		line-height: 20px;
+		color: rgba(50, 50, 51, 1);
+		text-align: left;
+	}
 	@keyframes move-in{
 		0%{
 			opacity: 0;

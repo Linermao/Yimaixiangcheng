@@ -4,7 +4,8 @@ const common_assets = require("../../common/assets.js");
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    const moveY = common_vendor.ref(-500);
+    const moveY = common_vendor.ref(0);
+    const titleMoveY = common_vendor.ref(0);
     const blockSwitch = common_vendor.ref(false);
     let startY = 0;
     let nowY = 0;
@@ -20,10 +21,12 @@ const _sfc_main = {
       moveY.value = nowY + dis;
       if (nowY == 0 && moveY.value < ThresholdHeight1) {
         moveY.value = moveableHeight;
+        titleMoveY.value = moveY.value * 0.3;
       } else if (moveY.value < moveableHeight) {
         moveY.value = moveableHeight;
       } else if (nowY != 0 && moveY.value > ThresholdHeight2) {
         moveY.value = 0;
+        titleMoveY.value = 0;
       }
     };
     const end = () => {
@@ -39,6 +42,9 @@ const _sfc_main = {
     const sliderStyle = common_vendor.computed(() => ({
       transform: `translateY(${moveY.value}px)`
     }));
+    const titleSliderStyle = common_vendor.computed(() => ({
+      transform: `translateY(${titleMoveY.value}px)`
+    }));
     const switchBlock = (blockName) => {
       blockSwitch.value = !blockSwitch.value;
     };
@@ -52,26 +58,47 @@ const _sfc_main = {
         f: common_assets._imports_5,
         g: common_assets._imports_6,
         h: common_assets._imports_7,
-        i: common_assets._imports_8,
-        j: common_assets._imports_9,
-        k: common_vendor.o(start),
-        l: common_vendor.o(move),
-        m: common_vendor.o(end),
-        n: common_vendor.s(sliderStyle.value),
-        o: !blockSwitch.value
+        i: common_vendor.s(titleSliderStyle.value),
+        j: common_assets._imports_8,
+        k: common_assets._imports_9,
+        l: common_vendor.o(start),
+        m: common_vendor.o(move),
+        n: common_vendor.o(end),
+        o: common_vendor.s(sliderStyle.value),
+        p: !blockSwitch.value
       }, !blockSwitch.value ? {
-        p: common_assets._imports_10,
-        q: common_vendor.o(switchBlock)
+        q: common_assets._imports_10,
+        r: common_vendor.o(switchBlock)
       } : {}, {
-        r: blockSwitch.value
+        s: blockSwitch.value
       }, blockSwitch.value ? {
-        s: common_assets._imports_11,
-        t: common_vendor.o(switchBlock)
+        t: common_assets._imports_11,
+        v: common_vendor.o(switchBlock)
       } : {}, {
-        v: common_vendor.o(start),
-        w: common_vendor.o(move),
-        x: common_vendor.o(end),
-        y: common_vendor.s(sliderStyle.value)
+        w: !blockSwitch.value
+      }, !blockSwitch.value ? {} : {}, {
+        x: blockSwitch.value
+      }, blockSwitch.value ? {} : {}, {
+        y: !blockSwitch.value
+      }, !blockSwitch.value ? {
+        z: common_vendor.o(switchBlock)
+      } : {}, {
+        A: blockSwitch.value
+      }, blockSwitch.value ? {
+        B: common_vendor.o(switchBlock)
+      } : {}, {
+        C: common_assets._imports_12,
+        D: common_assets._imports_13,
+        E: common_assets._imports_14,
+        F: common_assets._imports_15,
+        G: !blockSwitch.value
+      }, !blockSwitch.value ? {} : {}, {
+        H: blockSwitch.value
+      }, blockSwitch.value ? {} : {}, {
+        I: common_vendor.o(start),
+        J: common_vendor.o(move),
+        K: common_vendor.o(end),
+        L: common_vendor.s(sliderStyle.value)
       });
     };
   }
